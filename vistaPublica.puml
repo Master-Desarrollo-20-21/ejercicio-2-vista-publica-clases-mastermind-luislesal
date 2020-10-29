@@ -1,0 +1,70 @@
+@startuml
+class Mastermind
+
+class Board
+Board : PutCombination()
+Board : ShowProposal()
+
+class Player
+Player : StartGame()
+Player : ProposeCombination()
+Player : EndGame()
+
+class Proposal
+Proposal : PutCombination()
+
+Class Combination
+Combination :  Result Compare(Combination combination)
+Combination : Show()
+
+class CombinationChecker
+CombinationChecker : boolean Check(Combination combination)
+
+Class Result
+Result : IsWiner()
+Result : Show()
+
+class SecretCombination
+SecretCombination : autoGenerate()
+SecretCombination : Show()
+
+enum Color
+Color : Red
+Color : Blue
+Color : Yellow
+Color : Green
+Color : Orange
+Color : Show()
+
+enum Success
+Success : Black
+Success : White
+
+Mastermind  *--   Player
+Mastermind *--Board
+Mastermind *-- SecretCombination
+
+Board o-- "0..10" Proposal
+Board --> CombinationChecker
+
+Player  --> "0..10" Proposal
+Player -> Board
+
+Combination <|-- SecretCombination
+Combination ..> Result 
+Combination *--"4" Color
+
+SecretCombination <.. Proposal
+
+Proposal *-- Combination
+Proposal *-- Result
+
+Result  *-- "4" Success
+
+CombinationChecker ..> Combination
+
+
+
+
+
+@enduml
